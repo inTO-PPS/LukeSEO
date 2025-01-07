@@ -2,6 +2,11 @@ import java.util.*;
 
 class Solution {
 
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+    }
+
     //A001
     public int findContentChildren(int[] g, int[] s) {
         Arrays.sort(g);
@@ -17,6 +22,7 @@ class Solution {
         }
         return count;
     }
+
 
     //A002
     public List<List<Integer>> generate(int numRows) {
@@ -46,6 +52,7 @@ class Solution {
         }
     }
 
+
     //A003
     public int[] plusOne(int[] digits) {
         digits[digits.length-1]++;
@@ -68,8 +75,79 @@ class Solution {
     }
 
 
+    //A012
     public int countPrimes(int n) {
-
-        return 0;
+        if(n==0||n==1) return 0;
+        boolean[] list=new boolean[n+1];
+        Arrays.fill(list,true);
+        for(int i=2;i<Math.sqrt(n)+1;i++){
+            if(list[i]){
+                for(int j=i+i;j<n;j+=i){
+                    list[j]=false;
+                }
+            }
+        }
+        int count=-3;
+        for(boolean bool:list){
+            if(bool) count++;
+        }
+        return count;
     }
+
+
+    //A013
+    public int singleNumber(int[] nums) {
+        List<Integer> list=new ArrayList<>();
+        for(int num:nums){
+            if(list.contains(num)) list.remove(Integer.valueOf(num));
+            else list.add(num);
+        }
+        return list.get(0);
+    }
+
+
+    //A014
+    public List<String> summaryRanges(int[] nums) {
+        List<String> list=new ArrayList<>();
+        for(int i=0;i<nums.length;i++){
+            String str="";
+            if(i<nums.length-1 && nums[i+1]==nums[i]+1){
+                str+=nums[i]+"->";
+                int j;
+                for(j=i+1;j<nums.length;j++){
+                    if(!(j<nums.length-1 && nums[j]+1==nums[j+1])) break;
+                }
+                str+=nums[j];
+                list.add(str);
+                i=j;
+            }
+            else if(i>0 && nums[i-1]==nums[i]){
+                continue;
+            }
+            else{
+                str+=nums[i];
+                list.add(str);
+            }
+        }
+        return list;
+    }
+
+
+    //A023
+    public int addDigits(int num) {
+        if(num<10) return num;
+        int sum=0;
+        long div=10;
+        while(true){
+            long digit=num%div/(div/10);
+            sum+=digit;
+            if(num/div<1) break;
+            div*=10;
+        }
+        return addDigits(sum);
+    }
+
+
+    //A024
+
 }
