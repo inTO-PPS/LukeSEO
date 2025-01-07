@@ -1,13 +1,6 @@
-package src;
-
 import java.util.*;
 
 class Solution {
-
-    public static void main(String[] args) {
-        Solution solution=new Solution();
-        System.out.println(solution.countPrimes(100));
-    }
 
     //A001
     public int findContentChildren(int[] g, int[] s) {
