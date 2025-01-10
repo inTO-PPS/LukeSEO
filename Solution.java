@@ -97,12 +97,13 @@ class Solution {
 
     //A013
     public int singleNumber(int[] nums) {
-        List<Integer> list=new ArrayList<>();
-        for(int num:nums){
-            if(list.contains(num)) list.remove(Integer.valueOf(num));
-            else list.add(num);
+        Arrays.sort(nums);
+        int i;
+        for(i=0;i<nums.length;i++){
+            if(i<nums.length-2 && nums[i]==nums[i+1]) i++;
+            else break;
         }
-        return list.get(0);
+        return nums[i];
     }
 
 
@@ -149,5 +150,48 @@ class Solution {
 
 
     //A024
+    public boolean lemonadeChange(int[] bills) {
+        List<Integer> list=new ArrayList<>();
 
+        for(int i:bills){
+            switch(i){
+                case 5:
+                    list.add(5);
+                    break;
+                case 10:
+                    if(list.contains(5)){
+                        list.remove(Integer.valueOf(5));
+                        list.add(10);
+                    }
+                    else return false;
+                    break;
+                case 20:
+                    if(list.contains(5) && list.contains(10)){
+                        list.remove(Integer.valueOf(5));
+                        list.remove(Integer.valueOf(10));
+                    }
+                    else if(Collections.frequency(list,5)>=3){
+                        for(int j=0;j<3;j++) list.remove(Integer.valueOf(5));
+                    }
+                    else return false;
+                    break;
+            }
+        }
+        return true;
+    }
+
+
+    //A025
+    public boolean isPowerOfFour(int n) {
+        int div=0;
+        while(true){
+            if(Math.pow(4,div)==n) return true;
+            div++;
+            if(Math.pow(4,div)>n) break;
+        }
+        return false;
+    }
+
+
+    //
 }
