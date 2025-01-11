@@ -4,8 +4,12 @@ class Solution {
 
     public static void main(String[] args) {
         Solution sol = new Solution();
-
+        System.out.println(sol.halvesAreAlike("book"));
     }
+
+
+
+
 
     //A001
     public int findContentChildren(int[] g, int[] s) {
@@ -193,5 +197,79 @@ class Solution {
     }
 
 
-    //
+    //A037
+    public List<Integer> selfDividingNumbers(int left, int right) {
+        List<Integer> list=new ArrayList<>();
+        for(int i=left;i<=right;i++){
+            if(selfDividing(i)) list.add(i);
+        }
+        return list;
+    }
+    boolean selfDividing(int num){
+        int div=10;
+        int digit;
+        while(true){
+            digit=num%div/(div/10);
+            if(digit==0) return false;
+            if(num%digit!=0) return false;
+            div*=10;
+            if(div>num*10) break;
+        }
+        return true;
+    }
+
+
+    //A038
+    public int mySqrt(int x) {
+        if(x==0) return 0;
+        long root=x;
+        while(true){
+            if(root>x/root) root/=2;
+            else{
+                while(x/root>root) root++;
+                break;
+            }
+        }
+        while(root*root>x) root--;
+        return (int)root;
+    }
+
+
+    //A039
+    public boolean isPerfectSquare(int x) {
+        if(x==0) return false;
+        int root=x;
+        while(true){
+            if(root>x/root) root/=2;
+            else{
+                while(x/root>root) root++;
+                break;
+            }
+        }
+        while(root*root>x) root--;
+        if(root*root==x) return true;
+        else return false;
+    }
+
+
+    //A040
+    public boolean halvesAreAlike(String s) {
+        String a=s.substring(0,s.length()/2).toLowerCase();
+        String b=s.substring(s.length()/2).toLowerCase();
+        int ac=0;
+        int bc=0;
+        String[] list={"a","e","i","o","u"};
+        for(String vowel:list){
+            while(a.contains(vowel)){
+                a=a.replaceFirst(vowel,"");
+                ac++;
+            }
+            while(b.contains(vowel)){
+                b=b.replaceFirst(vowel,"");
+                bc++;
+            }
+        }
+        return ac==bc;
+    }
+
 }
