@@ -4,7 +4,7 @@ class Solution {
 
     public static void main(String[] args) {
         Solution sol = new Solution();
-        System.out.println(sol.halvesAreAlike("book"));
+        System.out.println(sol.backspaceCompare("y#fo##f","y#f#o##f"));
     }
 
 
@@ -272,4 +272,55 @@ class Solution {
         return ac==bc;
     }
 
+
+
+    //A042
+    public boolean backspaceCompare(String s, String t) {
+        for(int i=0;i<s.length();i++){
+            if(i!=0 && s.charAt(i)=='#'){
+                s=s.replace(s.substring(i-1,i+1),"");
+                i-=2;
+            }
+            else if(i==0 && s.charAt(i)=='#'){
+                s=s.replaceFirst("#","");
+                i--;
+            }
+        }
+        for(int i=0;i<t.length();i++){
+            if(i!=0 && t.charAt(i)=='#'){
+                t=t.replace(t.substring(i-1,i+1),"");
+                i-=2;
+            }
+            else if(i==0 && t.charAt(i)=='#'){
+                t=t.replaceFirst("#","");
+                i--;
+            }
+        }
+        return s.equals(t);
+    }
+
+
+    //A043
+    public String longestCommonPrefix(String[] strs) {
+        String first=strs[0];
+        int i;
+        int flag=0;
+        for(i=0;i<first.length();i++){
+            for(String str:strs){
+                if(i<str.length() && str.charAt(i)==first.charAt(i)){
+                    continue;
+                }
+                else{
+                    flag=1;
+                    break;
+                }
+            }
+            if(flag==1) break;
+        }
+        return first.substring(0,i);
+    }
+
+
+
+    
 }
