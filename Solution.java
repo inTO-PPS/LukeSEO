@@ -4,7 +4,7 @@ class Solution {
 
     public static void main(String[] args) {
         Solution sol = new Solution();
-        System.out.println(sol.backspaceCompare("y#fo##f","y#f#o##f"));
+        System.out.println(sol.removeOuterParentheses("(()())(())(()(()))"));
     }
 
 
@@ -322,5 +322,44 @@ class Solution {
 
 
 
+    //A044
+    public boolean checkRecord(String s) {
+        int ac=0;
+        int lc=0;
+        for(int i=0;i<s.length();i++){
+            if(i>0 && s.charAt(i-1)=='L' && s.charAt(i)!='L' && lc<3) lc=0;
+            if(s.charAt(i)=='A')ac++;
+            else if(s.charAt(i)=='L') lc++;
+        }
+        return ac<2&&lc<3;
+    }
+
+
+    //A055
+    public String removeOuterParentheses(String s) {
+        StringBuilder str=new StringBuilder(s);
+        int flag=0;
+        int count=0;
+        for(int i=0;i<str.length();i++){
+            if(flag==0){
+                str.deleteCharAt(i);
+                i--;
+                flag=1;
+            }
+            else if(count<0){
+                str.deleteCharAt(i-1);
+                if(i==str.length()) break;
+                i-=2;
+                flag=0;
+                count=0;
+            }
+            else{
+                if(str.charAt(i)=='(') count++;
+                else count--;
+            }
+        }
+        str.deleteCharAt(str.length()-1);
+        return str.toString();
+    }
     
 }
