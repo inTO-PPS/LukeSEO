@@ -1,3 +1,5 @@
+import DS.ListNode;
+
 class A058 {
 
     public ListNode reverseList(ListNode head) {
