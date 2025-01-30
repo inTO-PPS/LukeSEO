@@ -29,4 +29,7 @@ public class A119 {
         else return x;
     }
 
+    int guess(int x){
+        return 0;
+    }
 }
